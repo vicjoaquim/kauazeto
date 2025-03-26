@@ -7,37 +7,37 @@
     <style>
         body {
             font-family: 'Times New Roman', serif;
-            background-color: #f7e0d7; /* Cor suave para o fundo */
+            background-color: #f7e0d7;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             text-align: center;
-            padding: 0 10px; /* Adicionando padding para celular */
-            box-sizing: border-box;
+            overflow: hidden;
+            padding: 0 10px;
         }
 
         /* Envelope */
         .envelope {
             width: 100%;
-            max-width: 400px; /* Limita o tamanho máximo */
+            max-width: 400px;
             height: 250px;
-            background-color: #b0403d; /* Cor bordô para o envelope */
+            background-color: #b0403d;
             border-radius: 10px;
             position: relative;
             overflow: hidden;
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: transform 0.5s ease;
-            margin: 20px 0;
+            z-index: 2;
         }
 
         /* Parte superior do envelope */
         .flap {
             width: 100%;
             height: 65%;
-            background-color: #8b1e21; /* Tom bordô mais escuro */
+            background-color: #8b1e21;
             position: absolute;
             top: 0;
             left: 0;
@@ -51,8 +51,7 @@
 
         /* Carta */
         .carta {
-            display: none;
-            background-color: #fdf1e3; /* Cor clara para a carta */
+            background-color: #fdf1e3;
             border-radius: 8px;
             width: 90%;
             max-width: 360px;
@@ -61,86 +60,152 @@
             text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             font-size: 18px;
-            color: #b0403d; /* Cor bordô para o texto */
+            color: #b0403d;
             font-weight: bold;
             position: absolute;
-            top: 50%;
+            top: 100%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            transition: opacity 0.5s ease;
+            transform: translate(-50%, 0);
+            transition: top 0.5s ease, opacity 0.8s ease;
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .envelope.aberto .carta {
+            top: 30%;
+            opacity: 1;
         }
 
         /* Imagem dentro da carta */
         .carta img {
-            width: 100%; /* Agora a imagem vai ocupar toda a largura disponível */
-            max-width: 150px; /* Limita o tamanho máximo da imagem */
-            height: auto; /* Mantém a proporção da imagem */
-            object-fit: contain; /* Garante que a imagem não vai distorcer */
-            border-radius: 50%; /* Torna a imagem arredondada */
-            margin-top: 15px;
-            border: 2px solid #b0403d;
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 50%;
+            position: absolute;
+            top: 10px;
+            right: 50%;
+            transform: translateX(50%);
+            border: 3px solid #b0403d;
+        }
+
+        /* Texto da carta */
+        .texto-carta {
+            font-size: 26px;
+            font-weight: bold;
+            color: #b0403d;
+            margin-top: 140px;
+            opacity: 0;
+            transition: opacity 1s ease 0.5s;
+        }
+
+        .envelope.aberto .texto-carta {
+            opacity: 1;
         }
 
         /* Responsividade */
         @media (max-width: 768px) {
             .envelope {
-                height: 200px; /* Reduz a altura do envelope em telas menores */
+                height: 200px;
             }
 
             .carta {
-                width: 100%; /* A carta ocupa 100% da largura da tela em dispositivos móveis */
+                width: 100%;
                 height: auto;
                 padding: 10px;
             }
 
             .carta img {
-                max-width: 80%; /* A imagem ocupa mais espaço em telas menores */
-                height: auto; /* A imagem mantém a proporção mesmo em telas menores */
+                width: 100px;
+                height: 100px;
+            }
+
+            .texto-carta {
+                font-size: 22px;
             }
         }
 
-        /* Botão de abrir envelope */
-        .button {
-            background-color: #8b1e21; /* Cor bordô escuro */
-            color: white;
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            margin-top: 20px;
+        /* Animação dos corações */
+        .heart {
+            position: absolute;
+            font-size: 40px;
+            color: red;
+            opacity: 0.8;
+            animation: float 5s infinite ease-in-out;
+            z-index: 1;
         }
 
-        .button:hover {
-            background-color: #b0403d; /* Efeito de hover para uma cor mais escura */
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-100px) scale(1.2);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-200px) scale(0.8);
+                opacity: 0;
+            }
         }
+
+        /* Criando múltiplos corações em posições diferentes */
+        .heart:nth-child(1) { left: 10%; animation-duration: 6s; animation-delay: 0s; }
+        .heart:nth-child(2) { left: 30%; animation-duration: 4.5s; animation-delay: 1s; }
+        .heart:nth-child(3) { left: 50%; animation-duration: 5s; animation-delay: 2s; }
+        .heart:nth-child(4) { left: 70%; animation-duration: 6s; animation-delay: 1.5s; }
+        .heart:nth-child(5) { left: 90%; animation-duration: 4s; animation-delay: 0.5s; }
+        .heart:nth-child(6) { left: 20%; animation-duration: 5.5s; animation-delay: 2.5s; }
+        .heart:nth-child(7) { left: 80%; animation-duration: 4.8s; animation-delay: 1.2s; }
+        .heart:nth-child(8) { left: 60%; animation-duration: 5.2s; animation-delay: 2s; }
+
     </style>
 </head>
 <body>
 
+    <!-- Animação dos corações -->
+    <div class="heart">❤️</div>
+    <div class="heart">❤️</div>
+    <div class="heart">❤️</div>
+    <div class="heart">❤️</div>
+    <div class="heart">❤️</div>
+    <div class="heart">❤️</div>
+    <div class="heart">❤️</div>
+    <div class="heart">❤️</div>
+
     <div class="envelope" id="envelope" onclick="abrirEnvelope()">
-        <div class="flap"></div> <!-- Parte superior do envelope -->
+        <div class="flap"></div> 
         <div class="carta" id="carta">
-            <div>Te amo, coco!</div> <!-- Texto da carta -->
-            <img src="WhatsApp Image 2025-03-25 at 16.25.08.jpeg" alt="Imagem de amor"> <!-- Imagem -->
+            <img src="WhatsApp Image 2025-03-25 at 16.25.08.jpeg" alt="Imagem de amor"> 
+            <div class="texto-carta">Te amo, coco!</div>
         </div>
     </div>
 
     <script>
         function abrirEnvelope() {
             const envelope = document.getElementById('envelope');
-            const carta = document.getElementById('carta');
-
-            // Adiciona a classe 'aberto' ao envelope para simular a abertura
             envelope.classList.add('aberto');
-            
-            // Exibe o conteúdo da carta após o envelope "abrir"
-            setTimeout(() => {
-                carta.style.display = 'block';
-                carta.style.opacity = 1; // A carta aparece suavemente
-            }, 500); // Espera meio segundo para mostrar a carta
         }
+
+        // Criando mais corações dinamicamente
+        function criarCoracoes() {
+            const body = document.body;
+            for (let i = 0; i < 10; i++) {
+                let heart = document.createElement("div");
+                heart.classList.add("heart");
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+                heart.innerText = "❤️";
+                body.appendChild(heart);
+                setTimeout(() => heart.remove(), 5000); // Remove após a animação
+            }
+        }
+
+        setInterval(criarCoracoes, 1000); // Gera novos corações a cada segundo
+
     </script>
 
 </body>
