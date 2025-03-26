@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta de Amor</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            background-color: #f7e0d7; /* Cor suave para o fundo */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 0 10px; /* Adicionando padding para celular */
+            box-sizing: border-box;
+        }
+
+        /* Envelope */
+        .envelope {
+            width: 100%;
+            max-width: 400px; /* Limita o tamanho máximo */
+            height: 250px;
+            background-color: #b0403d; /* Cor bordô para o envelope */
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s ease;
+            margin: 20px 0;
+        }
+
+        /* Parte superior do envelope */
+        .flap {
+            width: 100%;
+            height: 65%;
+            background-color: #8b1e21; /* Tom bordô mais escuro */
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.5s ease;
+            transform-origin: top center;
+        }
+
+        .envelope.aberto .flap {
+            transform: rotateX(-180deg);
+        }
+
+        /* Carta */
+        .carta {
+            display: none;
+            background-color: #fdf1e3; /* Cor clara para a carta */
+            border-radius: 8px;
+            width: 90%;
+            max-width: 360px;
+            height: 180px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            font-size: 18px;
+            color: #b0403d; /* Cor bordô para o texto */
+            font-weight: bold;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.5s ease;
+        }
+
+        /* Imagem dentro da carta */
+        .carta img {
+            width: 100%; /* Agora a imagem vai ocupar toda a largura disponível */
+            max-width: 150px; /* Limita o tamanho máximo da imagem */
+            height: auto; /* Mantém a proporção da imagem */
+            object-fit: contain; /* Garante que a imagem não vai distorcer */
+            border-radius: 50%; /* Torna a imagem arredondada */
+            margin-top: 15px;
+            border: 2px solid #b0403d;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .envelope {
+                height: 200px; /* Reduz a altura do envelope em telas menores */
+            }
+
+            .carta {
+                width: 100%; /* A carta ocupa 100% da largura da tela em dispositivos móveis */
+                height: auto;
+                padding: 10px;
+            }
+
+            .carta img {
+                max-width: 80%; /* A imagem ocupa mais espaço em telas menores */
+                height: auto; /* A imagem mantém a proporção mesmo em telas menores */
+            }
+        }
+
+        /* Botão de abrir envelope */
+        .button {
+            background-color: #8b1e21; /* Cor bordô escuro */
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #b0403d; /* Efeito de hover para uma cor mais escura */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="envelope" id="envelope" onclick="abrirEnvelope()">
+        <div class="flap"></div> <!-- Parte superior do envelope -->
+        <div class="carta" id="carta">
+            <div>Te amo, coco!</div> <!-- Texto da carta -->
+            <img src="WhatsApp Image 2025-03-25 at 16.25.08.jpeg" alt="Imagem de amor"> <!-- Imagem -->
+        </div>
+    </div>
+
+    <script>
+        function abrirEnvelope() {
+            const envelope = document.getElementById('envelope');
+            const carta = document.getElementById('carta');
+
+            // Adiciona a classe 'aberto' ao envelope para simular a abertura
+            envelope.classList.add('aberto');
+            
+            // Exibe o conteúdo da carta após o envelope "abrir"
+            setTimeout(() => {
+                carta.style.display = 'block';
+                carta.style.opacity = 1; // A carta aparece suavemente
+            }, 500); // Espera meio segundo para mostrar a carta
+        }
+    </script>
+
+</body>
+</html>
